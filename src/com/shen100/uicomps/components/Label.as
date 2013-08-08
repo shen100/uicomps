@@ -1,4 +1,4 @@
-package com.shen.uicomps.components
+package com.shen100.uicomps.components
 {
 	import flash.display.Sprite;
 	import flash.events.Event;

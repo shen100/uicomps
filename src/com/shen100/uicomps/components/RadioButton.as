@@ -1,12 +1,11 @@
-package com.shen.uicomps.components
+package com.shen100.uicomps.components
 {
-	import com.shen.uicomps.components.skin.CheckBoxSkin;
-	import com.shen.uicomps.components.skin.RadioButtonSkin;
+	import com.shen100.uicomps.components.skin.RadioButtonSkin;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
-	public class CheckBox extends Sprite {
+	public class RadioButton extends Sprite {
 		
 		public static const SELECT_UP:String 			= "selectUp";
 		public static const SELECT_OVER:String 			= "selectOver";
@@ -16,25 +15,59 @@ package com.shen.uicomps.components
 		public static const UNSELECT_OVER:String 		= "unSelectOver";
 		public static const UNSELECT_DOWN:String 		= "unSelectDown";
 		public static const UNSELECT_DISABLED:String 	= "unSelectDisabled";
+	
+		
+		public static var buttons:Array;
 		
 		private var _selected:Boolean = false;
+		private var _groupName:String = "defaultRadioButtonGroup";
 		
-		private var _skin:CheckBoxSkin;
+		private var _skin:RadioButtonSkin;
 		private var _currentState:String;
+		private var _vaule:Object;
 		
-		public function CheckBox(checked:Boolean = false, defaultHandler:Function = null)
+		public function RadioButton(groupName:String = "defaultRadioButtonGroup", checked:Boolean = false, defaultHandler:Function = null)
 		{
+			RadioButton.addButton(this);
+			_groupName = groupName;
 			_selected = checked;
 			buttonMode = true;
 			
 			addEventListener(MouseEvent.CLICK, onClick);
-			
+		
 			if(defaultHandler != null) {
 				addEventListener(MouseEvent.CLICK, defaultHandler);
 			}
 		}
-	
-		public function get skin():CheckBoxSkin {
+		
+		private static function addButton(rb:RadioButton):void {
+			if(buttons == null)
+			{
+				buttons = new Array();
+			}
+			buttons.push(rb);
+		}
+		
+		public static function deleteGroup(groupName:String):void {
+			for (var i:int = buttons.length - 1; i >= 0; i--) {
+				var radioButton:RadioButton = buttons[i];
+				if(radioButton.groupName == groupName) {
+					buttons.splice(i, 1);
+				}	
+			}
+		}
+		
+		private static function clear(rb:RadioButton):void {
+			for(var i:uint = 0; i < buttons.length; i++)
+			{
+				if(buttons[i] != rb && buttons[i].groupName == rb.groupName)
+				{
+					buttons[i].selected = false;
+				}
+			}
+		}
+		
+		public function get skin():RadioButtonSkin {
 			return _skin;
 		}
 		
@@ -51,25 +84,29 @@ package com.shen.uicomps.components
 			}
 		}
 		
-		public function set skin(checkBoxSkin:CheckBoxSkin):void {
+		public function set textSize(value:Object):void {
+			_skin.textSize = value;
+		}
+		
+		public function set skin(radioButtonSkin:RadioButtonSkin):void {
 			if(_skin) {
 				removeChild(_skin);	
 			}
-			_skin = checkBoxSkin;
+			_skin = radioButtonSkin;
 			addChild(_skin);
 			
 			if(selected) {
-				currentState = CheckBox.SELECT_UP;
+				currentState = RadioButton.SELECT_UP;
 			}else {
-				currentState = CheckBox.UNSELECT_UP;	
+				currentState = RadioButton.UNSELECT_UP;	
 			}
-			addEventListener(MouseEvent.ROLL_OVER, onMouseOver);
+			addEventListener(MouseEvent.ROLL_OVER, 	onMouseOver);
+			addEventListener(MouseEvent.ROLL_OUT, 	onMouseOut);
+			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		}
-		
-		
+	
 		private function onMouseOver(event:MouseEvent):void
 		{
-			addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
 			if(selected == false) {
 				currentState = RadioButton.UNSELECT_OVER;
 			}else {
@@ -79,7 +116,6 @@ package com.shen.uicomps.components
 		
 		protected function onMouseOut(event:MouseEvent):void
 		{
-			removeEventListener(MouseEvent.ROLL_OUT, onMouseOut);
 			if(selected == false) {
 				currentState = RadioButton.UNSELECT_UP;
 			}else {
@@ -87,8 +123,16 @@ package com.shen.uicomps.components
 			}
 		}
 		
+		private function onMouseDown(event:MouseEvent):void {
+			if(selected == false) {
+				currentState = RadioButton.UNSELECT_DOWN;	
+			}else {
+				currentState = RadioButton.SELECT_DOWN;		
+			}
+		}
+		
 		protected function onClick(event:MouseEvent):void {
-			selected = !selected;
+			selected = true;
 		}
 		
 		public function set selected(s:Boolean):void {
@@ -96,6 +140,7 @@ package com.shen.uicomps.components
 			_selected = s;
 			if(_selected) {
 				currentState = RadioButton.SELECT_UP;
+				RadioButton.clear(this);
 			}else {
 				if(lastSelected) {
 					currentState = RadioButton.UNSELECT_UP;
@@ -106,7 +151,11 @@ package com.shen.uicomps.components
 		public function get selected():Boolean {
 			return _selected;
 		}
-	
+		
+		public function get groupName():String {
+			return _groupName;
+		}
+		
 		public function get currentState():String {
 			return _currentState;
 		}
@@ -116,35 +165,35 @@ package com.shen.uicomps.components
 				_currentState = value;
 				if(_skin) {
 					switch(_currentState) {
-						case CheckBox.SELECT_OVER:{
+						case RadioButton.SELECT_OVER:{
 							_skin.selectOver();
 							break;
 						}
-						case CheckBox.UNSELECT_OVER:{
+						case RadioButton.UNSELECT_OVER:{
 							_skin.unSelectOver();
 							break;
 						}
-						case CheckBox.SELECT_UP:{
+						case RadioButton.SELECT_UP:{
 							_skin.selectUp();
 							break;
 						}
-						case CheckBox.UNSELECT_UP:{
+						case RadioButton.UNSELECT_UP:{
 							_skin.unSelectUp();
 							break;
 						}
-						case CheckBox.SELECT_DOWN:{
+						case RadioButton.SELECT_DOWN:{
 							_skin.selectDown();
 							break;
 						}
-						case CheckBox.UNSELECT_DOWN:{
+						case RadioButton.UNSELECT_DOWN:{
 							_skin.unSelectDown();
 							break;
 						}
-						case CheckBox.SELECT_DISABLED:{
+						case RadioButton.SELECT_DISABLED:{
 							_skin.selectDisabled();
 							break;
 						}
-						case CheckBox.UNSELECT_DISABLED:{
+						case RadioButton.UNSELECT_DISABLED:{
 							_skin.unSelectDisabled();
 							break;
 						}
@@ -152,11 +201,19 @@ package com.shen.uicomps.components
 				}
 			}
 		}
+
+		public function get vaule():Object
+		{
+			return _vaule;
+		}
+
+		public function set vaule(value:Object):void
+		{
+			_vaule = value;
+		}
+
 	}
 }
-
-
-
 
 
 

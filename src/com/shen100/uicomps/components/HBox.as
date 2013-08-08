@@ -27,7 +27,7 @@
  */
  
  
-package com.shen.uicomps.components
+package com.shen100.uicomps.components
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;

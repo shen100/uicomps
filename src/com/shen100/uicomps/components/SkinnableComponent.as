@@ -1,6 +1,6 @@
-package com.shen.uicomps.components {
+package com.shen100.uicomps.components {
 	
-	import com.shen.uicomps.components.skin.Skin;
+	import com.shen100.uicomps.components.skin.Skin;
 	
 	import flash.display.Sprite;
 	

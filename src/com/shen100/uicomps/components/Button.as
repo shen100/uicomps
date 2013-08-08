@@ -1,6 +1,6 @@
-package com.shen.uicomps.components {
+package com.shen100.uicomps.components {
 	
-	import com.shen.uicomps.components.skin.ButtonSkin;
+	import com.shen100.uicomps.components.skin.ButtonSkin;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
