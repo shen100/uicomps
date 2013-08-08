@@ -1,7 +1,6 @@
 package com.shen100.uicomps.components
 {
 	import com.shen100.uicomps.components.skin.CheckBoxSkin;
-	import com.shen100.uicomps.components.skin.RadioButtonSkin;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
