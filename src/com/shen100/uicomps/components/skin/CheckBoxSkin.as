@@ -1,6 +1,6 @@
-package com.shen.uicomps.components.skin
+package com.shen100.uicomps.components.skin
 {
-	import com.shen.uicomps.components.Label;
+	import com.shen100.uicomps.components.Label;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;

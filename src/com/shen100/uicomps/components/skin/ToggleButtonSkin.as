@@ -1,4 +1,4 @@
-package com.shen.uicomps.components.skin {
+package com.shen100.uicomps.components.skin {
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
