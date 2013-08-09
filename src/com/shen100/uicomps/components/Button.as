@@ -4,7 +4,6 @@ package com.shen100.uicomps.components {
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-	import flash.text.TextFormat;
 	
 	public class Button extends Sprite {
 		

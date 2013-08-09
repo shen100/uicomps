@@ -1,7 +1,6 @@
 package com.shen100.uicomps.components
 {
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.text.Font;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
