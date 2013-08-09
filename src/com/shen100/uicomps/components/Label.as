@@ -42,7 +42,7 @@ package com.shen100.uicomps.components
 				allFonts = {};
 				var fonts:Array = Font.enumerateFonts(true);
 				for each (var font:Font in fonts) {
-					trace(font.fontName);
+					//trace(font.fontName);
 					allFonts[font.fontName] = font.fontName;
 				}
 			}
