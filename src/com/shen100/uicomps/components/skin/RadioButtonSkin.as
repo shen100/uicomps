@@ -9,7 +9,7 @@ package com.shen100.uicomps.components.skin
 	{	
 		private var gap:Number = 5;
 		private var _asset:MovieClip;
-		private var _label:Label;
+		protected var _label:Label;
 		
 		public function RadioButtonSkin(asset:MovieClip = null) {
 			mouseChildren = false;

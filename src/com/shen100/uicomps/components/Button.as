@@ -4,6 +4,7 @@ package com.shen100.uicomps.components {
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	public class Button extends Sprite {
 		
@@ -118,7 +119,7 @@ package com.shen100.uicomps.components {
 				_skin.width = value;
 			}
 		}
-		
+
 		public function set label(value:String):void {
 			if(!_skin.label) {
 				if(!_label) {
