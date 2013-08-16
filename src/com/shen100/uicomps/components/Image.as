@@ -32,7 +32,6 @@ package com.shen100.uicomps.components {
 			var request:URLRequest = new URLRequest();
 			request.url = url;
 			loader.load(request);
-			addChild(loader);
 		}
 		
 		private function onComplete(event:Event):void {
@@ -50,6 +49,8 @@ package com.shen100.uicomps.components {
 			if(_smoothing && bitmapData) {
 				bitmap = new Bitmap(bitmapData, "auto", true);	
 				addChild(bitmap);
+			}else {
+				addChild(loader);	
 			}
 			dispatchEvent(new Event(Image.LOAD_RESULT));
 		}
